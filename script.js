@@ -29,7 +29,7 @@ function playRound(humanChoice, computerChoice)
     if (humanChoice === computerChoice)
     {
         console.log(result + "it's a draw.")
-        return;
+        return 0;
     }
 
     if (humanChoice === "paper" && computerChoice === "rock" ||
@@ -37,19 +37,44 @@ function playRound(humanChoice, computerChoice)
         humanChoice === "rock" && computerChoice === "scissor")
     {
         console.log(result + "you win !")
-        ++humanScore;
+        return 1;
     }
     else
     {
         console.log(result + "you lose...")
-        ++computerScore;
+        return -1;
     }
 }
 
-let humanScore = 0;
-let computerScore = 0;
+function playGame()
+{
+    let humanScore = 0;
+    let computerScore = 0;
 
-let humanSelection = getHumanChoice();
-let computerSelection = getComputerChoice();
+    for (let i = 0; i < 5; ++i)
+    {
+        let humanSelection = getHumanChoice();
+        let computerSelection = getComputerChoice();
 
-playRound(humanSelection, computerSelection);
+        switch (playRound(humanSelection, computerSelection))
+        {
+            case 1:
+                ++humanScore;
+                break;
+            case -1:
+                ++computerScore;
+                break;
+        }
+    }
+
+    if (humanScore > computerScore)
+    {
+        console.log("Congrats ! You won !");
+    }
+    else
+    {
+        console.log("Sorry, you lost...");
+    }
+}
+
+playGame();
